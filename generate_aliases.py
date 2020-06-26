@@ -30,12 +30,10 @@ def main():
     # (alias, full, allow_when_oneof, incompatible_with)
     cmds = [('k', 'kubectl', None, None)]
 
-    globs = [('sys', '--namespace=kube-system', None, ['sys'])]
+    #globs = [('sys', '--namespace=kube-system', None, ['sys'])]
+    globs = []
 
     ops = [
-        ('a', 'apply --recursive -f', None, None),
-        ('ak', 'apply -k', None, ['sys']),
-        ('k', 'kustomize', None, ['sys']),
         ('ex', 'exec -i -t', None, None),
         ('lo', 'logs -f', None, None),
         ('lop', 'logs -f -p', None, None),
@@ -48,29 +46,22 @@ def main():
         ]
 
     res = [
-        ('po', 'pods', ['g', 'd', 'rm'], None),
-        ('dep', 'deployment', ['g', 'd', 'rm'], None),
-        ('svc', 'service', ['g', 'd', 'rm'], None),
-        ('ing', 'ingress', ['g', 'd', 'rm'], None),
-        ('cm', 'configmap', ['g', 'd', 'rm'], None),
-        ('sec', 'secret', ['g', 'd', 'rm'], None),
+        ('po', 'pods', ['g', 'd'], None),
+        ('dep', 'deployment', ['g', 'd'], None),
+        ('svc', 'service', ['g', 'd'], None),
+        ('ing', 'ingress', ['g', 'd'], None),
+        ('cm', 'configmap', ['g', 'd'], None),
+        ('sec', 'secret', ['g', 'd'], None),
         ('no', 'nodes', ['g', 'd'], ['sys']),
-        ('ns', 'namespaces', ['g', 'd', 'rm'], ['sys']),
-        ('pv', 'persistentvolume', ['g', 'd'], None),
+        ('ns', 'namespaces', ['g', 'd'], ['sys']),
+        ('pv', 'persistentvolume', ['g'], None),
         ('pvc', 'persistentvolumeclaim', ['g', 'd'], None),
+        ('ss', 'statefulset', ['g', 'd'], None),
         ]
     res_types = [r[0] for r in res]
 
     args = [
-        ('oyaml', '-o=yaml', ['g'], ['owide', 'ojson', 'sl']),
-        ('owide', '-o=wide', ['g'], ['oyaml', 'ojson']),
-        ('ojson', '-o=json', ['g'], ['owide', 'oyaml', 'sl']),
-        ('all', '--all-namespaces', ['g', 'd'], ['rm', 'f', 'no', 'sys'
-         ]),
-        ('sl', '--show-labels', ['g'], ['oyaml', 'ojson']
-         + diff(res_types, ['po', 'dep'])),
         ('all', '--all', ['rm'], None), # caution: reusing the alias
-        ('w', '--watch', ['g'], ['oyaml', 'ojson', 'owide']),
         ]
 
     # these accept a value, so they need to be at the end and
