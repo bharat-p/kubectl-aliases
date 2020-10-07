@@ -42,9 +42,21 @@ See [the full list](.kubectl_aliases).
 You can directly download the [`.kubectl_aliases` file](https://raw.githubusercontent.com/bharat-p/kubectl-aliases/master/.kubectl_aliases)
 and save it in your $HOME directory, then edit your .bashrc/.zshrc file with:
 
+
+Bash Users:
 ```sh
-[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+wget https://raw.githubusercontent.com/bharat-p/kubectl-aliases/master/.kubectl_aliases
+
+echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> ~/.bashrc
 ```
+
+Zsh users
+```sh
+wget https://raw.githubusercontent.com/bharat-p/kubectl-aliases/master/.kubectl_aliases
+
+echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> ~/.zshrc
+```
+
 
 > **Recommendation:** If you want to use GNU `watch`  command instead of
 > `kubectl [...] --watch`, run it like this:
